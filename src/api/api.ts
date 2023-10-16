@@ -8,7 +8,8 @@ export class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data),
-      credentials: 'include'
+      credentials: 'include',
+      mode: 'cors'
     })
     return await request.json()
   }
@@ -31,7 +32,8 @@ export class Api {
       headers: {
         Authorization: `Bearer ${token}`
       },
-      credentials: 'include'
+      credentials: 'include',
+      mode: 'cors'
     })
     return await response.json()
   }
