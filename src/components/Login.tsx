@@ -18,21 +18,25 @@ export default function Login(): JSX.Element {
 
   const handleLogin = async (e: FormEvent): Promise<void> => {
     e.preventDefault()
-    const formData = new FormData(e.target as HTMLFormElement)
-    const data: Record<string, string> = {}
+    try {
+      const formData = new FormData(e.target as HTMLFormElement)
+      const data: Record<string, string> = {}
 
-    formData.forEach((value, key) => {
-      data[key] = value as string
-    })
+      formData.forEach((value, key) => {
+        data[key] = value as string
+      })
 
-    const response = await Api.login(data)
+      const response = await Api.login(data)
 
-    if (response.success === false) {
-      setErrors(response.message)
-    } else {
-      dispatch(setCredentials({ ...response }))
-      setErrors(null)
-      navigate('/private')
+      if (response.success === false) {
+        setErrors(response.message)
+      } else {
+        dispatch(setCredentials({ ...response }))
+        setErrors(null)
+        navigate('/private')
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 

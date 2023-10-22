@@ -1,20 +1,20 @@
 import { useEffect } from 'react'
-import AppRouter from './Routes/AppRouter'
-import Header from './components/Header'
 import { useDispatch } from 'react-redux'
-import { setCredentials } from './redux/auth/authSlice'
 import { useNavigate } from 'react-router-dom'
+import AppRouter from './Routes/AppRouter'
 import { Api } from './api/api'
+import Header from './components/Header'
+import { setCredentials } from './redux/auth/authSlice'
 
 function App(): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    const checkAuthentication = async (): Promise<void> => {
+    // eslint-disable-next-line
+    ;(async (): Promise<void> => {
       try {
         const response = await Api.getCurrentUser()
-        console.log(response)
         if (response.success === true) {
           dispatch(setCredentials(response))
           navigate('/private')
@@ -22,8 +22,7 @@ function App(): JSX.Element {
       } catch (error) {
         console.log(error)
       }
-    }
-    checkAuthentication()
+    })()
   }, [])
 
   return (
